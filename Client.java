@@ -10,19 +10,13 @@ public class Client extends Thread{
     private Socket s;
 
     private ObjectOutputStream outObj;
-    //private ObjectInputStream inObj;
-
-    private InputStreamReader inputS;
     private BufferedReader in;
-    //private PrintWriter out;
 
     public void connectSocket(String host, int port) throws IOException{
         s = new Socket(host, port);
         outObj = new ObjectOutputStream(s.getOutputStream());
-        //inObj = new ObjectInputStream(s.getInputStream());
-
-        inputS = new InputStreamReader(s.getInputStream());
-        in = new BufferedReader(inputS);
+        
+        in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
     }
 
@@ -81,11 +75,6 @@ public class Client extends Thread{
         catch(ParseException e){
             System.out.println("Wrong date");
         }
-    }
-
-
-
-    public static void sendMessage(Socket s)throws IOException{
-
+        
     }
 }

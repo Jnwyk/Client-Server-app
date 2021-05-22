@@ -9,9 +9,6 @@ public class ClientHandler extends Thread{
 
     private Socket client;
     private PrintWriter out;
-    private BufferedReader in;
-    //private ObjectOutputStream outObj;
-    private OutputStreamWriter outputS;
     private ObjectInputStream inObj;
     private Timer timer;
 
@@ -21,10 +18,7 @@ public class ClientHandler extends Thread{
 
     public void create() throws IOException{
         inObj = new ObjectInputStream(client.getInputStream());
-        //outObj = new ObjectOutputStream(client.getOutputStream());
-
-        outputS = new OutputStreamWriter(client.getOutputStream());
-        out = new PrintWriter(outputS);
+        out = new PrintWriter(client.getOutputStream());
     }
 
 
@@ -33,9 +27,7 @@ public class ClientHandler extends Thread{
             timer = new Timer();
 
 
-            inObj = new ObjectInputStream(client.getInputStream());
-            //outputS = new OutputStreamWriter(client.getOutputStream());
-            out = new PrintWriter(client.getOutputStream());
+            create();
 
             while(true){
                 Message message = (Message)inObj.readObject();
@@ -58,9 +50,5 @@ public class ClientHandler extends Thread{
         }
     }
 
-
-    public void  sendMessage(PrintWriter out, Message message) throws IOException{
-        out.println(message.getMessage());
-    }
 
 }
